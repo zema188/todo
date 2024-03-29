@@ -13,7 +13,6 @@ const props = defineProps({
     }
 })
 
-
 const editTask = () => {
     todoStore.paramsEditibleTask = {...props.item}
     todoStore.modalType = 'edit'
@@ -60,7 +59,7 @@ const editTask = () => {
     &__item {
         border: 1px solid rgba(187, 255, 209, 1);
         border-radius: 8px;
-        padding: 10px 100px 10px 10px;
+        padding: 10px 10px 10px 10px;
         min-height: 90px;
         position: relative;
         background: rgba(187, 255, 209, 1);
@@ -98,11 +97,16 @@ const editTask = () => {
         font-size: 20px;
         font-weight: bold;
         transition: .2s;
+        word-break: break-all;
+        padding-right: 100px;
     }
 
     &__item-description {
         display: block;
         transition: .2s;
+        word-break: break-all;
+        max-height: 200px;
+        overflow: auto;
     }
 
     &__item-btns {

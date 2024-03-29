@@ -1,7 +1,7 @@
 <script setup>
 import { useTodoStore } from '@/stores/todo'
-import IconCross from '@/components/icons/IconCross.vue';
 import { computed } from 'vue';
+import IconCross from '@/components/icons/IconCross.vue';
 
 const todoStore = useTodoStore()
 

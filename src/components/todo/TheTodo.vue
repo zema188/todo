@@ -1,11 +1,10 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import { useTodoStore } from '@/stores/todo'
 import TodoList from '@/components/todo/TodoList.vue';
 import TodoModal from '@/components/todo/TodoModal.vue';
 
 const todoStore = useTodoStore()
-
 
 const addTask = () => {
     todoStore.modalType = 'create'
@@ -31,9 +30,7 @@ onMounted(() => {
             </button>
         </div>
 
-        <todo-list
-            v-if="todoStore.tasks.length"
-        />
+        <todo-list v-if="todoStore.tasks.length"/>
 
         <p v-else>
             Список задач пуст...
