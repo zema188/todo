@@ -12,15 +12,15 @@ export const useTodoStore = defineStore('todo', () => {
     if(!validate()) return
 
     let quantityTasks = localStorage.getItem("todoTasksQuantity")
-
     quantityTasks ? quantityTasks++ : quantityTasks = 1
-
     localStorage.setItem("todoTasksQuantity", quantityTasks)
 
     paramsEditibleTask.value.id = quantityTasks
 
     tasks.value.push({...paramsEditibleTask.value})
 
+    updateTasksInDataBase()
+    
     closeModal()
   }
 
@@ -30,6 +30,7 @@ export const useTodoStore = defineStore('todo', () => {
     const index = getIndexTask(id)
     if(index !== -1) {
       tasks.value[index] = {...paramsEditibleTask.value}
+      updateTasksInDataBase()
       closeModal()
     }
   }

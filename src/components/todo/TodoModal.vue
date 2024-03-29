@@ -9,6 +9,14 @@ const closemodal = () => {
     todoStore.closeModal()
 }
 
+const sendTask = () => {
+    if(todoStore.modalType === 'create') {
+        todoStore.addTask()
+    } else {
+        todoStore.updateTask(todoStore.paramsEditibleTask.id)
+    }
+}
+
 const isDisabledSendBtn = computed(() => {
     return !todoStore.paramsEditibleTask.title || !todoStore.paramsEditibleTask.description
 })
@@ -30,7 +38,9 @@ const isDisabledSendBtn = computed(() => {
                             {{ todoStore.errors.title }}
                         </span>
                         <div class="input-w">
-                            <input v-model="todoStore.paramsEditibleTask.title">
+                            <input v-model="todoStore.paramsEditibleTask.title"
+                                @keydown.enter="sendTask()"
+                            >
                         </div>
                     </div>
                     <div class="modal__field">
@@ -41,26 +51,25 @@ const isDisabledSendBtn = computed(() => {
                             {{ todoStore.errors.description }}
                         </span>
                         <div class="input-w">
-                            <textarea v-model="todoStore.paramsEditibleTask.description">
-                            </textarea>
+                            <textarea v-model="todoStore.paramsEditibleTask.description"
+                                @keydown.prevent.enter="sendTask()"
+                            ></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal__btns">
                     <button class="modal__btns-item btn btn_green"
-                        v-if="todoStore.modalType === 'create'"
                         :disabled="isDisabledSendBtn"
-                        @click="todoStore.addTask()"
+                        @click="sendTask()"
                     >
-                        Создать
-                    </button>
 
-                    <button class="modal__btns-item btn btn_green"
-                        v-if="todoStore.modalType === 'edit'"
-                        :disabled="isDisabledSendBtn"
-                        @click="todoStore.updateTask(todoStore.paramsEditibleTask.id)"
-                    >
+                        <span v-if="todoStore.modalType === 'create'">
+                            Создать
+                        </span>
+
+                        <span v-else>
                         Сохранить
+                        </span>
                     </button>
                 </div>
                 <button class="modal__close"
